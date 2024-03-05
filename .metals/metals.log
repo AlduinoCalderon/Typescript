@@ -310,3 +310,9 @@ INFO: Unsupported notification method: $/setTrace
 10:08:17.952 [pool-1-thread-4] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "PUBLIC": 4
 10:08:17.956 [pool-1-thread-4] INFO org.flywaydb.core.internal.command.DbMigrate -- Schema "PUBLIC" is up to date. No migration necessary.
 10:08:18.325 [pool-1-thread-4] DEBUG org.flywaydb.core.FlywayExecutor -- Memory usage: 92 of 120M
+2024.03.05 10:08:18 WARN  no build tool detected in workspace 'C:\Servicios web Al2\REST\Typescript'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2024.03.05 10:08:18 WARN  Build server is not auto-connectable.
+mar 05, 2024 10:08:59 A. M. org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+mar 05, 2024 10:09:59 A. M. org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
