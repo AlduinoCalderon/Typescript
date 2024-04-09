@@ -2,11 +2,21 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express, {Application} from 'express';
 import routerMateria from '../routes/materiaroute';
+import dbConn from '../database/connection';
 class Server{
     private app: Application;
     private port: string;
     private apiRoutes = {
         materia : '/api/materia'
+    }
+    async dbConnfn(){
+        try{
+            await dbConn.authenticate();
+            console.log("Base de datos conectada");
+        }
+        catch(error){
+            console.log(error);
+        }
     }
     routes(){
         this.app.use(this.apiRoutes.materia, routerMateria);
@@ -18,6 +28,7 @@ class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT || '8001';
+        this.dbConnfn();
         this.accesoPublico();
         this.routes();
     }
