@@ -11,9 +11,14 @@ class Server{
     routes(){
         this.app.use(this.apiRoutes.materia, routerMateria);
     }
+    accesoPublico(){
+        this.app.use(express.json());
+        this.app.use(express.static('public'));
+    }
     constructor(){
         this.app = express();
         this.port = process.env.PORT || '8001';
+        this.accesoPublico();
         this.routes();
     }
     listen(){
