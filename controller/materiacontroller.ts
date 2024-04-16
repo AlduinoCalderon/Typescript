@@ -1,5 +1,6 @@
 import { Request, Response} from "express";
 import tablaMateria from "../model/materia";
+import { where } from "sequelize";
 export const getMaterias = async(req:Request, resp:Response)=>{
     try{
         const materias = await tablaMateria.findAll();
@@ -44,19 +45,44 @@ export const postMateria = async(req:Request, resp:Response)=>{
     
     
 }
-export const putMateria = (req:Request, resp:Response)=>{
+export const putMateria = async(req:Request, resp:Response)=>{
+    interface ParamsJSon{
+        nombreMateria: string,
+        estadoMateria: boolean,
+        semestreMateria: number
+    }
+    const bodyJSon = <ParamsJSon> req.body;
+    const nombreMat = bodyJSon.nombreMateria;
+    const estadoMat = bodyJSon.estadoMateria;
+    const semestreMat = bodyJSon.semestreMateria;
     const {body} = req;
     const {id} = req.params;
-    resp.json({
-        mensaje: "putMateria",
-        body,
-        id
-    });   
+    try{
+        const materiaEncontrada = await tablaMateria.findByPk(id);
+        if (!materiaEncontrada) {
+            return resp.status(404).json({mensaje: "Materia no encontrada"})
+        } else{
+        const materiaActualizada = await materiaEncontrada.update(body);
+        resp.json(materiaActualizada);   }
+        
+    }
+    catch(error){ 
+        console.log(error);
+        resp.status(500).json({mensaje: "Error al actualizar"});
+    }  
 }
-export const deleteMateria = (req:Request, resp:Response)=>{
+export const deleteMateria = async(req:Request, resp:Response)=>{
     const {id} = req.params;
-    resp.json({
-        mensaje: "deleteMateria",
-        id
-    });   
+    try{
+        const materiaEncontrada = await tablaMateria.findByPk(id);
+        if (!materiaEncontrada) {
+            return resp.status(404).json({mensaje: "Materia no encontrada"})
+        } else{
+        const materiaActualizada = await materiaEncontrada.update({"estadoMateria": false});
+        resp.json(materiaActualizada);}
+    }
+    catch(error){
+        console.log(error);
+        resp.status(500).json({mensaje: "Error del servidor"});
+    } 
 }

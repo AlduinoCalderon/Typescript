@@ -53,22 +53,45 @@ const postMateria = (req, resp) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.postMateria = postMateria;
-const putMateria = (req, resp) => {
+const putMateria = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
+    const bodyJSon = req.body;
+    const nombreMat = bodyJSon.nombreMateria;
+    const estadoMat = bodyJSon.estadoMateria;
+    const semestreMat = bodyJSon.semestreMateria;
     const { body } = req;
     const { id } = req.params;
-    resp.json({
-        mensaje: "putMateria",
-        body,
-        id
-    });
-};
+    try {
+        const materiaEncontrada = yield materia_1.default.findByPk(id);
+        if (!materiaEncontrada) {
+            return resp.status(404).json({ mensaje: "Materia no encontrada" });
+        }
+        else {
+            const materiaActualizada = yield materiaEncontrada.update(body);
+            resp.json(materiaActualizada);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        resp.status(500).json({ mensaje: "Error al actualizar" });
+    }
+});
 exports.putMateria = putMateria;
-const deleteMateria = (req, resp) => {
+const deleteMateria = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    resp.json({
-        mensaje: "deleteMateria",
-        id
-    });
-};
+    try {
+        const materiaEncontrada = yield materia_1.default.findByPk(id);
+        if (!materiaEncontrada) {
+            return resp.status(404).json({ mensaje: "Materia no encontrada" });
+        }
+        else {
+            const materiaActualizada = yield materiaEncontrada.update({ "estadoMateria": false });
+            resp.json(materiaActualizada);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        resp.status(500).json({ mensaje: "Error del servidor" });
+    }
+});
 exports.deleteMateria = deleteMateria;
 //# sourceMappingURL=materiacontroller.js.map
