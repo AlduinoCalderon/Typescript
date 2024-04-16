@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-const dbName: string = 'pruebanode';
+const dbName: string = 'pruebasoa';
 const user: string = 'root';
 const password : string = '';
 const serverMysql : string = 'localhost';
